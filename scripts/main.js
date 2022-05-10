@@ -30,19 +30,19 @@ const gameBoard = (() => {
     players.push(two);
   }
 
-  let playerTurn = 1;
+  let playerTurn = 0;
   let gameOver = false;
   const play = (index) => {
     if (gameOver){return};
-    if (playerTurn == 1){
+    if (playerTurn == 0){
       board[index] = players[0].symbol;
-      playerTurn = 2;
       checkForWinner();
+      playerTurn = 1;
       return players[0].symbol;
     } else {
-      playerTurn = 1;
       board[index] = players[1].symbol;
       checkForWinner();
+      playerTurn = 0;
       return players[1].symbol;
     }
   }
@@ -55,7 +55,7 @@ const gameBoard = (() => {
       }
       if ((board[winCombinations[i][0]] == board[winCombinations[i][1]]) && (board[winCombinations[i][0]] == board[winCombinations[i][2]])){
         gameOver = true;
-        displayController.printResult(`The winner is ${board[winCombinations[i][0]]}!`);
+        displayController.printResult(`The winner is ${players[playerTurn].symbol}!`);
         break;
       }
     }
