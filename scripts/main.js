@@ -1,6 +1,7 @@
 const displayController = (() => {
-  const boardSquares = document.querySelectorAll(".main>ul>li");
-  boardSquares.forEach((square, index) => {
+  const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
+
+  boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
       if (square.className != "occupied"){
         square.className = "occupied";
@@ -9,18 +10,26 @@ const displayController = (() => {
     });
   });
 
+  const resultDOM = document.querySelector(".resultModal");
+
   const printResult = (result) => {
-    
+    resultDOM.textContent = result;
+    resultDOM.style.display = "flex";
   }
+
+  return {printResult};
 })();
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
+
   const players = [];
+
   const setPlayers = (one, two) => {
     players.push(one);
     players.push(two);
   }
+
   let playerTurn = 1;
   let gameOver = false;
   const play = (index) => {
@@ -37,6 +46,7 @@ const gameBoard = (() => {
       return players[1].symbol;
     }
   }
+
   const checkForWinner = () => {
     const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let i = 0; i < 8; i++){
@@ -45,10 +55,12 @@ const gameBoard = (() => {
       }
       if ((board[winCombinations[i][0]] == board[winCombinations[i][1]]) && (board[winCombinations[i][0]] == board[winCombinations[i][2]])){
         gameOver = true;
+        displayController.printResult(`The winner is ${board[winCombinations[i][0]]}!`);
         break;
       }
     }
   }
+
   return {play, setPlayers};
 })();
 
