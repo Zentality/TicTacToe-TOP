@@ -1,3 +1,7 @@
+const Player = (name, symbol) => {
+  return {name, symbol};
+}
+
 const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
   boardSquaresDOM.forEach((square, index) => {
@@ -16,6 +20,7 @@ const displayController = (() => {
   const resetButton = document.querySelector("#resetButton");
   resetButton.addEventListener("click", () => {
     boardSquaresDOM.forEach((square) => {
+      resultDOM.style.display = "none";
       square.className = "";
       square.textContent = "";
       gameBoard.reset();
@@ -63,10 +68,7 @@ const gameBoard = (() => {
     for (let i = 0; i < 9; i++){
       board[i] = "";
     }
+    gameOver = false;
   }
-  return {play, setPlayers, reset};
+  return {play, reset};
 })();
-
-const Player = (name, symbol) => {
-  return {name, symbol};
-}
