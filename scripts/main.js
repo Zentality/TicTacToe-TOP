@@ -55,17 +55,20 @@ const gameBoard = (() => {
       }
       if ((board[winCombinations[i][0]] == board[winCombinations[i][1]]) && (board[winCombinations[i][0]] == board[winCombinations[i][2]])){
         gameOver = true;
-        displayController.printResult(`The winner is ${players[playerTurn].symbol}!`);
+        displayController.printResult(`The winner is ${players[playerTurn].name}!`);
         break;
       }
+    }
+    if (!board.includes("")){
+      displayController.printResult(`The result is a tie...`);
     }
   }
 
   return {play, setPlayers};
 })();
 
-const Player = (symbol) => {
-  return {symbol};
+const Player = (name, symbol) => {
+  return {name, symbol};
 }
 
-gameBoard.setPlayers(Player("X"), Player("O"));
+gameBoard.setPlayers(Player("PlayerX","X"), Player("PlayerO","O"));
