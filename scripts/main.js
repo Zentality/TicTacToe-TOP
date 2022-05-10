@@ -1,7 +1,7 @@
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
   const players = [];
-  const getPlayers = (one, two) => {
+  const setPlayers = (one, two) => {
     players.push(one);
     players.push(two);
   }
@@ -9,7 +9,7 @@ const gameBoard = (() => {
     board[index] = players[0].symbol;
     return players[0].symbol;
   }
-  return {play, getPlayers};
+  return {play, setPlayers};
 })();
 
 const displayController = (() => {
@@ -32,4 +32,4 @@ const Player = (symbol) => {
   return {symbol};
 }
 
-gameBoard.getPlayers(Player("X"), Player("O"));
+gameBoard.setPlayers(Player("X"), Player("O"));
