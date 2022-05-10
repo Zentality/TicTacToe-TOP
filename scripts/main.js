@@ -5,9 +5,10 @@ const gameBoard = (() => {
 
 const displayController = (() => {
   const boardSquares = document.querySelectorAll(".main>ul>li");
-  boardSquares.forEach(square => {
+  boardSquares.forEach((square, index) => {
     square.addEventListener("click", (e) => {
-      console.log((e.target.attributes.id.value).replace(/[a-z]/g, ""));
+      gameBoard.board[index] = "X";
+      console.log(gameBoard.board);
     });
   });
 })();
