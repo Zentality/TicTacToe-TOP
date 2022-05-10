@@ -8,13 +8,11 @@ const displayController = (() => {
       }
     });
   });
-
   const resultDOM = document.querySelector(".resultModal");
   const printResult = (result) => {
     resultDOM.textContent = result;
     resultDOM.style.display = "flex";
   }
-
   const resetButton = document.querySelector("#resetButton");
   resetButton.addEventListener("click", () => {
     boardSquaresDOM.forEach((square) => {
@@ -23,20 +21,12 @@ const displayController = (() => {
       gameBoard.reset();
     })
   })
-
   return {printResult};
 })();
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-
-  const players = [];
-
-  const setPlayers = (one, two) => {
-    players.push(one);
-    players.push(two);
-  }
-
+  const players = [Player("PlayerX","X"), Player("PlayerO","O")];
   let playerTurn = 0;
   let gameOver = false;
   const play = (index) => {
@@ -53,7 +43,6 @@ const gameBoard = (() => {
       return players[1].symbol;
     }
   }
-
   const checkForWinner = () => {
     const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let i = 0; i < 8; i++){
@@ -70,18 +59,14 @@ const gameBoard = (() => {
       displayController.printResult(`The result is a tie...`);
     }
   }
-
   const reset = () => {
     for (let i = 0; i < 9; i++){
       board[i] = "";
     }
   }
-
   return {play, setPlayers, reset};
 })();
 
 const Player = (name, symbol) => {
   return {name, symbol};
 }
-
-gameBoard.setPlayers(Player("PlayerX","X"), Player("PlayerO","O"));
