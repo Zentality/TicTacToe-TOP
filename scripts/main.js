@@ -5,9 +5,17 @@ const gameBoard = (() => {
     players.push(one);
     players.push(two);
   }
+  let playerTurn = 1;
   const play = (index) => {
-    board[index] = players[0].symbol;
-    return players[0].symbol;
+    if (playerTurn == 1){
+      board[index] = players[0].symbol;
+      playerTurn = 2;
+      return players[0].symbol;
+    } else {
+      playerTurn = 1;
+      board[index] = players[1].symbol;
+      return players[1].symbol;
+    }
   }
   return {play, setPlayers};
 })();
