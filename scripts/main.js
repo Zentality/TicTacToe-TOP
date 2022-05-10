@@ -28,7 +28,6 @@ const displayController = (() => {
 })();
 
 const Player = (symbol) => {
-  const symbol = symbol;
   return {symbol};
 }
 
