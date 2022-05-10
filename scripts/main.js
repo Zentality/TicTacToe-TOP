@@ -57,7 +57,7 @@ const gameBoard = (() => {
       if ((board[winCombinations[i][0]] == board[winCombinations[i][1]]) && (board[winCombinations[i][0]] == board[winCombinations[i][2]])){
         gameOver = true;
         displayController.printResult(`The winner is ${players[playerTurn].name}!`);
-        break;
+        return;
       }
     }
     if (!board.includes("")){
