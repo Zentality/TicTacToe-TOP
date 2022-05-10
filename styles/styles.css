@@ -19,6 +19,14 @@
   border-bottom: 2px solid #a6a6af;
   font-size: 8vh;
   font-weight: 800;
+  background-color: #babac3;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template: 1fr / 1fr 1fr 1fr;
+  -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
 }
 
 .container .main {
@@ -62,10 +70,9 @@
 
 .container .footer {
   border-top: 2px solid #a6a6af;
-}
-
-.header, .footer {
   background-color: #babac3;
+  -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -75,8 +82,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header > div:nth-child(2) {
+  text-align: center;
 }
 
 .resultModal {

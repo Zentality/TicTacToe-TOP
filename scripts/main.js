@@ -1,6 +1,5 @@
 const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
-
   boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
       if (square.className != "occupied"){
@@ -11,11 +10,19 @@ const displayController = (() => {
   });
 
   const resultDOM = document.querySelector(".resultModal");
-
   const printResult = (result) => {
     resultDOM.textContent = result;
     resultDOM.style.display = "flex";
   }
+
+  const resetButton = document.querySelector("#resetButton");
+  resetButton.addEventListener("click", () => {
+    boardSquaresDOM.forEach((square) => {
+      square.className = "";
+      square.textContent = "";
+      gameBoard.reset();
+    })
+  })
 
   return {printResult};
 })();
@@ -64,7 +71,13 @@ const gameBoard = (() => {
     }
   }
 
-  return {play, setPlayers};
+  const reset = () => {
+    for (let i = 0; i < 9; i++){
+      board[i] = "";
+    }
+  }
+
+  return {play, setPlayers, reset};
 })();
 
 const Player = (name, symbol) => {
