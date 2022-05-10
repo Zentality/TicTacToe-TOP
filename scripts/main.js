@@ -8,6 +8,10 @@ const displayController = (() => {
       }
     });
   });
+
+  const printResult = (result) => {
+    
+  }
 })();
 
 const gameBoard = (() => {
