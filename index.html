@@ -9,21 +9,34 @@
   <script src="scripts/main.js" defer></script>
 </head>
 <body>
-  <div class="resultModal"></div>
+  <div class="resultModal">
+    <button class="resetButton">Start New Game</button>
+  </div>
 
   <div class="container">
-    <div class="header"><div></div><div>Tic Tac Toe</div><button id="resetButton">Reset Game</button></div>
+    <div class="header"><div>Tic Tac Toe</div></div>
     <div class="main">
+      <div class="settings">
+        <div class="setting">
+          <label for="playerOneName">Player One Name</label>
+          <input type="text" id="playerOneName">
+        </div>
+        <div class="setting">
+          <label for="playerTwoName">Player Two Name</label>
+          <input type="text" id="playerTwoName">
+        </div>
+        <button class="resetButton">Start New Game</button>
+      </div>
       <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
+        <li class="occupied"></li>
       </ul>
     </div>
     <div class="footer">Copyright 2022 Zentality <a href="https://github.com/Zentality"></a></div>

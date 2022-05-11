@@ -6,8 +6,8 @@ const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
   boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
-      if (square.className != "occupied"){
-        square.className = "occupied";
+      if (square.classList.contains != "occupied"){
+        square.classList.add("occupied");
         square.textContent = gameBoard.play(index);
       }
     });
@@ -17,13 +17,15 @@ const displayController = (() => {
     resultDOM.textContent = result;
     resultDOM.style.display = "flex";
   }
-  const resetButton = document.querySelector("#resetButton");
-  resetButton.addEventListener("click", () => {
-    boardSquaresDOM.forEach((square) => {
-      resultDOM.style.display = "none";
-      square.className = "";
-      square.textContent = "";
-      gameBoard.reset();
+  const resetButtons = document.querySelectorAll(".resetButton");
+  resetButtons.forEach((resetButton) => {
+    resetButton.addEventListener("click", () => {
+      boardSquaresDOM.forEach((square) => {
+        resultDOM.style.display = "none";
+        square.classList.remove("occupied");
+        square.textContent = "";
+        gameBoard.reset();
+      })
     })
   })
   return {printResult};
@@ -33,7 +35,7 @@ const gameBoard = (() => {
   const board = ["","","","","","","","",""];
   const players = [Player("PlayerX","X"), Player("PlayerO","O")];
   let playerTurn = 0;
-  let gameOver = false;
+  let gameOver = true;
   const play = (index) => {
     if (gameOver){return};
     if (playerTurn == 0){
