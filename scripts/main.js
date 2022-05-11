@@ -5,15 +5,32 @@ const Player = (name, symbol, isComputer, difficulty) => {
 const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
   boardSquaresDOM.forEach((square, index) => {
+
     square.addEventListener("click", () => {
       if (square.classList.contains("occupied")){
         return;
       }
       gameBoard.play(index);
       gameBoard.computerPlay();
+      square.style.removeProperty('Color');
     });
-  });
 
+    square.addEventListener("mouseover", () => {
+      if (!square.classList.contains("occupied")){
+        square.textContent = gameBoard.players[gameBoard.getPlayerTurn()].symbol;
+        square.style.color = "rgb(190,190,200)";
+      }
+    })
+
+    square.addEventListener("mouseleave", () => {
+      console.log("Over");
+      if (!square.classList.contains("occupied")){
+        square.textContent = "";
+        square.style.removeProperty('Color');
+      }
+    })
+  });
+  
   const playerOneMode = document.querySelectorAll(".playerOne>.playerType>div")
   playerOneMode.forEach((setting, index) => {
     setting.addEventListener(("click"), () => {
@@ -24,7 +41,6 @@ const displayController = (() => {
       gameBoard.players[0].isComputer = !!index;
     })
   })
-
   const playerTwoMode = document.querySelectorAll(".playerTwo>.playerType>div")
   playerTwoMode.forEach((setting, index) => {
     setting.addEventListener(("click"), () => {
@@ -35,7 +51,6 @@ const displayController = (() => {
       gameBoard.players[1].isComputer = !!index;
     })
   })
-
   const playerOneDifficulty = document.querySelectorAll(".playerOne>.difficulty>div")
   playerOneDifficulty.forEach((setting, index) => {
     setting.addEventListener(("click"), () => {
@@ -46,7 +61,6 @@ const displayController = (() => {
       gameBoard.players[0].difficulty = index;
     })
   })
-
   const playerTwoDifficulty = document.querySelectorAll(".playerTwo>.difficulty>div")
   playerTwoDifficulty.forEach((setting, index) => {
     setting.addEventListener(("click"), () => {
@@ -189,5 +203,9 @@ const gameBoard = (() => {
     gameOver = false;
     playerTurn = 0;
   }
-  return {play, reset, players, computerPlay};
+
+  const getPlayerTurn = () => {
+    return playerTurn;
+  }
+  return {play, reset, players, computerPlay, getPlayerTurn};
 })();
