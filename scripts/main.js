@@ -75,6 +75,7 @@ const gameBoard = (() => {
       board[i] = "";
     }
     gameOver = false;
+    playerTurn = 0;
   }
   return {play, reset};
 })();
