@@ -1,5 +1,4 @@
-const Player = (name, symbol) => {
-  let isComputer = false;
+const Player = (name, symbol, isComputer) => {
   let difficulty = 0; //0 dumb, 1 easy, 2 hard
   return {name, symbol, isComputer, difficulty};
 }
@@ -11,15 +10,9 @@ const displayController = (() => {
       if (!square.classList.contains("occupied")){
         gameBoard.play(index);
       }
+      gameBoard.computerPlay();
     });
   });
-
-  const computerPlay = () => {
-    while (gameBoard.players[gameBoard.playerTurn].isComputer){
-      square.classList.add("occupied");
-      square.textContent = gameBoard.play(index);
-    }
-  }
 
   const setSquare = (symbol, index) => {
     let square = boardSquaresDOM[index];
@@ -30,7 +23,6 @@ const displayController = (() => {
   const resultDOM = document.querySelector(".resultModal");
   const resultDomText = document.querySelector(".resultModal>p");
   const printResult = (result) => {
-    console.log(resultDOM);
     resultDomText.textContent = result;
     resultDomText.style.display = "block";
     resultDOM.style.display = "flex";
@@ -69,24 +61,45 @@ const displayController = (() => {
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-  const players = [Player("Player 1","X"), Player("Player 2","O")];
+  const players = [Player("Player 1","X", false), Player("Player 2","O", false)];
   let playerTurn = 0;
   let gameOver = true;
 
   const play = (index) => {
-    if (gameOver){return};
-    if (playerTurn == 0){
-      board[index] = players[0].symbol;
-      checkForWinner();
-      playerTurn = 1;
-      displayController.setSquare(players[0].symbol, index);
-    } else {
-      board[index] = players[1].symbol;
-      checkForWinner();
-      playerTurn = 0;
-      players[1].symbol;
-      displayController.setSquare(players[1].symbol, index);
+    if (index == "computer"){
+      index = computerDecision();
     }
+    if (gameOver){return};
+    updateBoard(index);
+    checkForWinner();
+  }
+
+  const updateBoard = (index) => {
+    board[index] = players[playerTurn].symbol;
+    displayController.setSquare(players[playerTurn].symbol, index);
+  }
+
+  const endTurn = () => {
+    playerTurn = (playerTurn + 1) % 2;
+  }
+
+  const computerPlay = () => {
+    while (players[(playerTurn + 1) % 2].isComputer && !gameOver){ //checking is NEXT player is computer
+      endTurn();
+      play("computer");
+    }
+    endTurn();
+  }
+
+  const computerDecision = () => {
+    let legalMoves = [];
+    for (let i = 0; i < 9; i++){
+      if (board[i] == ""){
+        legalMoves.push(i);
+      }
+    }
+    if (legalMoves.length == 0){gameOver = true};
+    return legalMoves[Math.floor(Math.random() * legalMoves.length)];
   }
 
 
@@ -108,6 +121,7 @@ const gameBoard = (() => {
       displayController.printResult(`The result is a tie...`);
     }
   }
+
   const reset = () => {
     for (let i = 0; i < 9; i++){
       board[i] = "";
@@ -115,5 +129,5 @@ const gameBoard = (() => {
     gameOver = false;
     playerTurn = 0;
   }
-  return {play, reset, players, playerTurn};
+  return {play, reset, players, playerTurn, endTurn, computerPlay};
 })();
