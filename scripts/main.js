@@ -39,7 +39,7 @@ const displayController = (() => {
     nameInput.addEventListener(("input"), (e) => {
       gameBoard.players[index].name = (e.target.value);
       if ((e.target.value) == ""){
-        gameBoard.players[index].name = `Player ${index}`;
+        gameBoard.players[index].name = `Player ${index + 1}`;
       }
     })
   })
