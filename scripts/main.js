@@ -31,12 +31,21 @@ const displayController = (() => {
   const endGame = () => {
     boardSquaresDOM.forEach((square) => square.classList.add("occupied"));
   }
+  const nameInputs = document.querySelectorAll(".nameInput");
+  nameInputs.forEach((nameInput, index) => {
+    nameInput.addEventListener(("input"), (e) => {
+      gameBoard.players[index].name = (e.target.value);
+      if ((e.target.value) == ""){
+        gameBoard.players[index].name = `Player ${index}`;
+      }
+    })
+  })
   return {printResult, endGame};
 })();
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-  const players = [Player("PlayerX","X"), Player("PlayerO","O")];
+  const players = [Player("Player 1","X"), Player("Player 2","O")];
   let playerTurn = 0;
   let gameOver = true;
   const play = (index) => {
@@ -77,5 +86,5 @@ const gameBoard = (() => {
     gameOver = false;
     playerTurn = 0;
   }
-  return {play, reset};
+  return {play, reset, players};
 })();

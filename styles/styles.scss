@@ -39,6 +39,7 @@ $dark-background: rgb(186, 186, 195);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      margin: 0 32px;
     }
     ul {
       display: grid;
@@ -96,8 +97,8 @@ $dark-background: rgb(186, 186, 195);
 }
 
 .resultModal .resetButton {
-  padding: 8px 48px;
-  font-size: 1.3em;
+  padding: 8px calc(24px + 1vw);
+  font-size: calc(0.5em + 0.7vw);
   border-radius: 128px;
 }
 
