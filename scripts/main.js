@@ -1,5 +1,7 @@
 const Player = (name, symbol) => {
-  return {name, symbol};
+  let isComputer = false;
+  let difficulty = 0; //0 dumb, 1 easy, 2 hard
+  return {name, symbol, isComputer, difficulty};
 }
 
 const displayController = (() => {
@@ -7,11 +9,24 @@ const displayController = (() => {
   boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
       if (!square.classList.contains("occupied")){
-        square.classList.add("occupied");
-        square.textContent = gameBoard.play(index);
+        gameBoard.play(index);
       }
     });
   });
+
+  const computerPlay = () => {
+    while (gameBoard.players[gameBoard.playerTurn].isComputer){
+      square.classList.add("occupied");
+      square.textContent = gameBoard.play(index);
+    }
+  }
+
+  const setSquare = (symbol, index) => {
+    let square = boardSquaresDOM[index];
+    square.classList.add("occupied");
+    square.textContent = symbol;
+  }
+
   const resultDOM = document.querySelector(".resultModal");
   const resultDomText = document.querySelector(".resultModal>p");
   const printResult = (result) => {
@@ -20,6 +35,7 @@ const displayController = (() => {
     resultDomText.style.display = "block";
     resultDOM.style.display = "flex";
   }
+
   const resetButtons = document.querySelectorAll(".resetButton");
   resetButtons.forEach((resetButton) => {
     resetButton.addEventListener("click", () => {
@@ -31,9 +47,11 @@ const displayController = (() => {
       })
     })
   })
+
   const endGame = () => {
     boardSquaresDOM.forEach((square) => square.classList.add("occupied"));
   }
+
   const nameInputs = document.querySelectorAll(".nameInput");
   nameInputs.forEach((nameInput, index) => {
     nameInput.addEventListener(("input"), (e) => {
@@ -43,28 +61,36 @@ const displayController = (() => {
       }
     })
   })
-  return {printResult, endGame};
+
+  return {printResult, endGame, setSquare};
 })();
+
+
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
   const players = [Player("Player 1","X"), Player("Player 2","O")];
   let playerTurn = 0;
   let gameOver = true;
+
   const play = (index) => {
     if (gameOver){return};
     if (playerTurn == 0){
       board[index] = players[0].symbol;
       checkForWinner();
       playerTurn = 1;
-      return players[0].symbol;
+      displayController.setSquare(players[0].symbol, index);
     } else {
       board[index] = players[1].symbol;
       checkForWinner();
       playerTurn = 0;
-      return players[1].symbol;
+      players[1].symbol;
+      displayController.setSquare(players[1].symbol, index);
     }
   }
+
+
+
   const checkForWinner = () => {
     const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let i = 0; i < 8; i++){
@@ -89,5 +115,5 @@ const gameBoard = (() => {
     gameOver = false;
     playerTurn = 0;
   }
-  return {play, reset, players};
+  return {play, reset, players, playerTurn};
 })();
