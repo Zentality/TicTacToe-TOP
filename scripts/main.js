@@ -6,7 +6,7 @@ const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
   boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
-      if (square.classList.contains != "occupied"){
+      if (!square.classList.contains("occupied")){
         square.classList.add("occupied");
         square.textContent = gameBoard.play(index);
       }
