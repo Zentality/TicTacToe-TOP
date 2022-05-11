@@ -91,6 +91,7 @@ $dark-background: rgb(186, 186, 195);
 
 .resultModal {
   display: flex;
+  flex-direction: column;
   position: absolute;
   left: 0;
   right: 0;
@@ -98,15 +99,20 @@ $dark-background: rgb(186, 186, 195);
   background-color: $dark-background;
   border: 2px solid rgb(166,166,175);
   text-align: center;
-  width: 50vw;
-  height: 12vh;
+  width: calc(400px + 30vw);
   box-shadow: 2px 2px 10px 4px rgba(0,0,0,0.7);
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  font-size: 2.5em;
+  font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  padding: 32px 16px;
+  p {
+    display: none;
+    font-size: 1.2em;
+    margin-bottom: 16px;
+  }
 }
 
 .resetButton {
@@ -121,6 +127,7 @@ $dark-background: rgb(186, 186, 195);
   padding: 8px calc(24px + 1vw);
   font-size: calc(0.5em + 0.7vw);
   border-radius: 128px;
+  width: calc(192px + 20vw);
 }
 
 button:hover, li:hover:not(.occupied) {

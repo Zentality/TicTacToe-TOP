@@ -13,8 +13,11 @@ const displayController = (() => {
     });
   });
   const resultDOM = document.querySelector(".resultModal");
+  const resultDomText = document.querySelector(".resultModal>p");
   const printResult = (result) => {
-    resultDOM.textContent = result;
+    console.log(resultDOM);
+    resultDomText.textContent = result;
+    resultDomText.style.display = "block";
     resultDOM.style.display = "flex";
   }
   const resetButtons = document.querySelectorAll(".resetButton");
