@@ -23,7 +23,6 @@ const displayController = (() => {
     })
 
     square.addEventListener("mouseleave", () => {
-      console.log("Over");
       if (!square.classList.contains("occupied")){
         square.textContent = "";
         square.style.removeProperty('Color');
@@ -39,6 +38,7 @@ const displayController = (() => {
       })
       setting.classList.add("active");
       gameBoard.players[0].isComputer = !!index;
+      gameBoard.changedDifficulty();
     })
   })
   const playerTwoMode = document.querySelectorAll(".playerTwo>.playerType>div")
@@ -49,6 +49,7 @@ const displayController = (() => {
       })
       setting.classList.add("active");
       gameBoard.players[1].isComputer = !!index;
+      gameBoard.changedDifficulty();
     })
   })
   const playerOneDifficulty = document.querySelectorAll(".playerOne>.difficulty>div")
@@ -144,11 +145,22 @@ const gameBoard = (() => {
   }
 
   const computerPlay = () => {
-    while (players[(playerTurn + 1) % 2].isComputer && !gameOver){ //checking is NEXT player is computer
+    while (players[(playerTurn + 1) % 2].isComputer && !gameOver){
       endTurn();
       play("computer");
     }
     endTurn();
+  }
+
+  const changedDifficulty = () => {
+    if (players[playerTurn].isComputer && !gameOver){
+      play("computer");
+      if (players[(playerTurn + 1) % 2].isComputer && !gameOver){
+        computerPlay();
+      } else {
+        endTurn();
+      }
+    }
   }
 
   const computerDecision = () => {
@@ -202,10 +214,11 @@ const gameBoard = (() => {
     }
     gameOver = false;
     playerTurn = 0;
+    changedDifficulty(); 
   }
 
   const getPlayerTurn = () => {
     return playerTurn;
   }
-  return {play, reset, players, computerPlay, getPlayerTurn};
+  return {play, reset, players, computerPlay, getPlayerTurn, endTurn, changedDifficulty};
 })();
