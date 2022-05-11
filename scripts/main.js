@@ -61,7 +61,7 @@ const displayController = (() => {
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-  const players = [Player("Player 1","X", false, 0), Player("Player 2","O", true, 1)];
+  const players = [Player("Player 1","X", true, 1), Player("Player 2","O", true, 1)];
   let playerTurn = 0;
   let gameOver = true;
 

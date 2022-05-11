@@ -66,13 +66,54 @@
   font-size: 1.1rem;
 }
 
-.container .main .settings input {
+.container .main .settings .setting > div, .container .main .settings input {
   width: 100%;
-  padding: 2px 8px;
+  height: 36px;
   border-radius: 8px;
   border: 2px solid #a6a6af;
   margin-top: 4px;
   font-size: 1.1rem;
+  background-color: white;
+  overflow: hidden;
+}
+
+.container .main .settings .setting > div {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-auto-flow: column;
+  grid-auto-rows: 1fr;
+  padding: 0;
+}
+
+.container .main .settings .setting > div div {
+  color: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .main .settings .setting > div .active {
+  background-color: #babac3;
+  color: #464646;
+}
+
+.container .main .settings input {
+  padding: 0px 8px;
+}
+
+.container .main .settings input:hover {
+  -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
 }
 
 .container .main .settings input:focus-visible {
