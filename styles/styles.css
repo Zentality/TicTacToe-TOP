@@ -102,6 +102,11 @@
           justify-content: center;
 }
 
+.container .main .settings .setting > div div:hover:not(.active) {
+  background-color: #fafafd;
+  color: #464646;
+}
+
 .container .main .settings .setting > div .active {
   background-color: #babac3;
   color: #464646;
@@ -114,6 +119,7 @@
 .container .main .settings input:hover {
   -webkit-box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
           box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fafafd;
 }
 
 .container .main .settings input:focus-visible {
