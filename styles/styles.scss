@@ -40,6 +40,27 @@ $dark-background: rgb(186, 186, 195);
       flex-direction: column;
       justify-content: space-between;
       margin: 0 32px;
+      .setting {
+        text-align: center;
+        font-size: 1.1rem;
+      }
+      input {
+        width: 100%;
+        padding: 2px 8px;
+        border-radius: 8px;
+        border: $border;
+        margin-top: 4px;
+        font-size: 1.1rem;
+        &:focus-visible{
+          border: 2px solid rgb(136,136,145);
+          outline: none;
+          transform: scale(1.01);
+          box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.2);
+        }
+        &::placeholder {
+          color: rgba(0,0,0,0.3);
+        }
+      }
     }
     ul {
       display: grid;
