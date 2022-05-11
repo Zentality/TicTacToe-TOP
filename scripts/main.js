@@ -14,6 +14,50 @@ const displayController = (() => {
     });
   });
 
+  const playerOneMode = document.querySelectorAll(".playerOne>.playerType>div")
+  playerOneMode.forEach((setting, index) => {
+    setting.addEventListener(("click"), () => {
+      playerOneMode.forEach((temp) => {
+        temp.classList.remove("active");
+      })
+      setting.classList.add("active");
+      gameBoard.players[0].isComputer = !!index;
+    })
+  })
+
+  const playerTwoMode = document.querySelectorAll(".playerTwo>.playerType>div")
+  playerTwoMode.forEach((setting, index) => {
+    setting.addEventListener(("click"), () => {
+      playerTwoMode.forEach((temp) => {
+        temp.classList.remove("active");
+      })
+      setting.classList.add("active");
+      gameBoard.players[1].isComputer = !!index;
+    })
+  })
+
+  const playerOneDifficulty = document.querySelectorAll(".playerOne>.difficulty>div")
+  playerOneDifficulty.forEach((setting, index) => {
+    setting.addEventListener(("click"), () => {
+      playerOneDifficulty.forEach((temp) => {
+        temp.classList.remove("active");
+      })
+      setting.classList.add("active");
+      gameBoard.players[0].difficulty = index;
+    })
+  })
+
+  const playerTwoDifficulty = document.querySelectorAll(".playerTwo>.difficulty>div")
+  playerTwoDifficulty.forEach((setting, index) => {
+    setting.addEventListener(("click"), () => {
+      playerTwoDifficulty.forEach((temp) => {
+        temp.classList.remove("active");
+      })
+      setting.classList.add("active");
+      gameBoard.players[1].difficulty = index;
+    })
+  })
+
   const setSquare = (symbol, index) => {
     let square = boardSquaresDOM[index];
     square.classList.add("occupied");
@@ -57,11 +101,9 @@ const displayController = (() => {
   return {printResult, endGame, setSquare};
 })();
 
-
-
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-  const players = [Player("Player 1","X", true, 1), Player("Player 2","O", true, 1)];
+  const players = [Player("Player 1","X", false, 0), Player("Player 2","O", false, 0)];
   let playerTurn = 0;
   let gameOver = true;
 
@@ -147,5 +189,5 @@ const gameBoard = (() => {
     gameOver = false;
     playerTurn = 0;
   }
-  return {play, reset, players, playerTurn, endTurn, computerPlay};
+  return {play, reset, players, computerPlay};
 })();
