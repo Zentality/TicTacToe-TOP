@@ -1,5 +1,4 @@
-const Player = (name, symbol, isComputer) => {
-  let difficulty = 0; //0 dumb, 1 easy, 2 hard
+const Player = (name, symbol, isComputer, difficulty) => {
   return {name, symbol, isComputer, difficulty};
 }
 
@@ -7,9 +6,10 @@ const displayController = (() => {
   const boardSquaresDOM = document.querySelectorAll(".main>ul>li");
   boardSquaresDOM.forEach((square, index) => {
     square.addEventListener("click", () => {
-      if (!square.classList.contains("occupied")){
-        gameBoard.play(index);
+      if (square.classList.contains("occupied")){
+        return;
       }
+      gameBoard.play(index);
       gameBoard.computerPlay();
     });
   });
@@ -61,7 +61,7 @@ const displayController = (() => {
 
 const gameBoard = (() => {
   const board = ["","","","","","","","",""];
-  const players = [Player("Player 1","X", false), Player("Player 2","O", false)];
+  const players = [Player("Player 1","X", false, 0), Player("Player 2","O", true, 1)];
   let playerTurn = 0;
   let gameOver = true;
 
@@ -71,7 +71,11 @@ const gameBoard = (() => {
     }
     if (gameOver){return};
     updateBoard(index);
-    checkForWinner();
+    if (checkForWinner(board)){
+      displayController.printResult(checkForWinner(board));
+      displayController.endGame();
+      gameOver = true;
+    }
   }
 
   const updateBoard = (index) => {
@@ -99,26 +103,40 @@ const gameBoard = (() => {
       }
     }
     if (legalMoves.length == 0){gameOver = true};
-    return legalMoves[Math.floor(Math.random() * legalMoves.length)];
+
+    if (players[playerTurn].difficulty == 0){
+      return legalMoves[Math.floor(Math.random() * legalMoves.length)];
+    } else if (players[playerTurn].difficulty == 1){
+      for (let i = 0; i < legalMoves.length; i++){
+        tempBoard = board.slice();
+        tempBoard[legalMoves[i]] = players[playerTurn].symbol;
+        if (checkForWinner(tempBoard)){
+          return legalMoves[i];
+        }
+      }
+      for (let i = 0; i < legalMoves.length; i++){
+        tempBoard = board.slice();
+        tempBoard[legalMoves[i]] = players[(playerTurn + 1) % 2].symbol;
+        if (checkForWinner(tempBoard)){
+          return legalMoves[i];
+        }
+      }
+      return legalMoves[Math.floor(Math.random() * legalMoves.length)];
+    }
   }
 
-
-
-  const checkForWinner = () => {
+  const checkForWinner = (boardToCheck) => {
     const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let i = 0; i < 8; i++){
-      if (board[winCombinations[i][0]] == "" || board[winCombinations[i][1]] == "" || board[winCombinations[i][2]] == "" ){
+      if (boardToCheck[winCombinations[i][0]] == "" || boardToCheck[winCombinations[i][1]] == "" || boardToCheck[winCombinations[i][2]] == "" ){
         continue;
       }
-      if ((board[winCombinations[i][0]] == board[winCombinations[i][1]]) && (board[winCombinations[i][0]] == board[winCombinations[i][2]])){
-        gameOver = true;
-        displayController.printResult(`The winner is ${players[playerTurn].name}!`);
-        displayController.endGame();
-        return true;
+      if ((boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][1]]) && (boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][2]])){
+        return (`The winner is ${players[playerTurn].name}!`);
       }
     }
-    if (!board.includes("")){
-      displayController.printResult(`The result is a tie...`);
+    if (!boardToCheck.includes("")){
+      return (`The result is a tie...`);
     }
   }
 
