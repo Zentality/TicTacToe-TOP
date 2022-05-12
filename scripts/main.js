@@ -178,7 +178,7 @@ const gameBoard = (() => {
         for (let i = 0; i < legalMoves.length; i++){
           tempBoard = board.slice();
           tempBoard[legalMoves[i]] = players[(playerTurn + j) % 2].symbol;
-          if (checkForWinner(tempBoard).points == 1){
+          if (checkForWinner(tempBoard).points){
             return legalMoves[i];
           }
         }
@@ -186,17 +186,64 @@ const gameBoard = (() => {
       return legalMoves[Math.floor(Math.random() * legalMoves.length)];
     } else if (players[playerTurn].difficulty == 2){
 
+      isMax = (playerTurn == 0);
+      let bestMove = -1;
+      let bestValue = 20;
+      tempBoard = board.slice();
+      for (let i = 0; i < legalMoves.length; i++){
+        tempBoard[legalMoves[i]] = players[playerTurn].symbol;
+        let value = minimax(tempBoard, !isMax);
+        if (value < bestValue){
+          bestValue = value;
+          bestMove = legalMoves[i];
+        }
+        tempBoard[legalMoves[i]] = "";
+      }
+      return bestMove;
+    }
+  }
+
+  const minimax = (tempBoard, isMaxPlayer) => {
+    if (checkForWinner(tempBoard).resultText){
+      return (checkForWinner(tempBoard).points);
+    }
+    let legalMoves = [];
+    for (let i = 0; i < 9; i++){
+      if (tempBoard[i] == ""){
+        legalMoves.push(i);
+      }
+    }
+    if (isMaxPlayer){
+      let bestVal = -15;
+      for (let i = 0; i < 9; i++){
+        if (tempBoard[i] == ""){
+          tempBoard[i] = players[0].symbol;
+          let value = minimax(tempBoard, false);
+          bestVal = Math.max(bestVal, value);
+          tempBoard[i] = "";
+        }
+      }
+      return bestVal;
+    }else{
+      let bestVal = 15;
+      for (let i = 0; i < 9; i++){
+        if (tempBoard[i] == ""){
+          tempBoard[i] = players[1].symbol;
+          let value = minimax(tempBoard, true);
+          bestVal = Math.min(bestVal, value);
+          tempBoard[i] = "";
+        }
+      }
+      return bestVal;
     }
   }
 
   const checkForWinner = (boardToCheck) => {
     const winCombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
     for (let i = 0; i < 8; i++){
-      if (boardToCheck[winCombinations[i][0]] == "" || boardToCheck[winCombinations[i][1]] == "" || boardToCheck[winCombinations[i][2]] == "" ){
-        continue;
-      }
+      if (boardToCheck[winCombinations[i][0]] == "" || boardToCheck[winCombinations[i][1]] == "" || boardToCheck[winCombinations[i][2]] == "" ){continue}
       if ((boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][1]]) && (boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][2]])){
-        return ({resultText:`The winner is ${players[playerTurn].name}!`, points: 1});
+        return ({resultText:`The winner is ${players[playerTurn].name}!`, points: (players[0].symbol ==  boardToCheck[winCombinations[i][0]] ? 1 : -1)});
       }
     }
     if (!boardToCheck.includes("")){
