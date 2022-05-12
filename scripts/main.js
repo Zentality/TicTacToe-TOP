@@ -94,8 +94,8 @@ const displayController = (() => {
         resultDOM.style.display = "none";
         square.classList.remove("occupied");
         square.textContent = "";
-        gameBoard.reset();
       })
+      gameBoard.reset();
     })
   })
 
@@ -190,7 +190,19 @@ const gameBoard = (() => {
         }
       }
       return legalMoves[Math.floor(Math.random() * legalMoves.length)];
+    } else if (players[playerTurn].difficulty == 2){
+
     }
+  }
+
+  const findBestMove = (legal, currentBoard) => {
+    move = -1;
+    legal.foreach((move), () => {
+      if (bestMove > move){
+        move = bestMove;
+      }
+    })
+    return move;
   }
 
   const checkForWinner = (boardToCheck) => {
@@ -214,7 +226,7 @@ const gameBoard = (() => {
     }
     gameOver = false;
     playerTurn = 0;
-    changedDifficulty(); 
+     changedDifficulty();
   }
 
   const getPlayerTurn = () => {
