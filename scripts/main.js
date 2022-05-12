@@ -12,7 +12,6 @@ const displayController = (() => {
       }
       gameBoard.play(index);
       gameBoard.computerPlay();
-      square.style.removeProperty('Color');
     });
 
     square.addEventListener("mouseover", () => {
@@ -77,6 +76,7 @@ const displayController = (() => {
     let square = boardSquaresDOM[index];
     square.classList.add("occupied");
     square.textContent = symbol;
+    square.style.removeProperty('Color');
   }
 
   const resultDOM = document.querySelector(".resultModal");
