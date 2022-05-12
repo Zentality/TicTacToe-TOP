@@ -16,5 +16,5 @@ Just a simple Tic-Tac-Toe project that can run completely on the frontend. Desig
 ## Live Project
 https://zentality.github.io/TicTacToe-TOP/
 
-##Note
+## Note
 * Currently "hard" mode does not function for the computer, this is a feature that is being implemented
