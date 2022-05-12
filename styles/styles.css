@@ -173,7 +173,12 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.container .main ul li.occupied {
   font-size: 18vh;
+  -webkit-transition-duration: 500ms;
+          transition-duration: 500ms;
 }
 
 .container .footer {
@@ -244,8 +249,17 @@
   width: calc(192px + 20vw);
 }
 
+li:not(.occupied) {
+  color: #f0f0f5;
+  font-size: 1vh;
+}
+
 li:hover:not(.occupied) {
+  -webkit-transition: color 500ms, background-color 800ms, font-size 400ms;
+  transition: color 500ms, background-color 800ms, font-size 400ms;
   background-color: #e6e6f0;
+  color: #bebec8;
+  font-size: 18vh;
 }
 
 button:hover {

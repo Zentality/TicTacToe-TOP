@@ -17,7 +17,6 @@ const displayController = (() => {
     square.addEventListener("mouseover", () => {
       if (!square.classList.contains("occupied")){
         square.textContent = gameBoard.players[gameBoard.getPlayerTurn()].symbol;
-        square.style.color = "rgb(190,190,200)";
       }
     })
 

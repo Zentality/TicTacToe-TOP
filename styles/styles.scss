@@ -106,7 +106,10 @@ $dark-background: rgb(186, 186, 195);
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 18vh;
+        &.occupied {
+          font-size: 18vh;
+          transition-duration: 500ms; 
+        }
       }
     }
   }
@@ -161,8 +164,17 @@ $dark-background: rgb(186, 186, 195);
   width: calc(192px + 20vw);
 }
 
+li:not(.occupied) {
+  color: rgb(240, 240, 245);
+  font-size: 1vh;
+}
+
 li:hover:not(.occupied) {
+  // transition-duration: 300ms;
+  transition: color 500ms, background-color 800ms, font-size 400ms;
   background-color: rgb(230, 230, 240);
+  color: rgb(190,190,200);
+  font-size: 18vh;
 }
 
 button:hover {
