@@ -187,13 +187,17 @@ const gameBoard = (() => {
     } else if (players[playerTurn].difficulty == 2){
 
       isMax = (playerTurn == 0);
+      let bestValue = (isMax ? -20 : 20);
+
       let bestMove = -1;
-      let bestValue = 20;
       tempBoard = board.slice();
       for (let i = 0; i < legalMoves.length; i++){
         tempBoard[legalMoves[i]] = players[playerTurn].symbol;
         let value = minimax(tempBoard, !isMax);
-        if (value < bestValue){
+        if (!isMax && value < bestValue){
+          bestValue = value;
+          bestMove = legalMoves[i];
+        } else if (isMax && value > bestValue){
           bestValue = value;
           bestMove = legalMoves[i];
         }
