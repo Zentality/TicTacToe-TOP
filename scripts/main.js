@@ -84,7 +84,7 @@ const displayController = (() => {
   const printResult = (result) => {
     resultDomText.textContent = result;
     resultDomText.style.display = "block";
-    resultDOM.style.display = "flex";
+    setTimeout(() => resultDOM.style.display = "flex", 500)
   }
 
   const resetButtons = document.querySelectorAll(".resetButton");

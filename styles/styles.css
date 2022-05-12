@@ -204,7 +204,7 @@
   left: 0;
   right: 0;
   margin: 35vh auto;
-  background-color: #babac3;
+  background-color: rgba(206, 206, 215, 0.9);
   border: 2px solid #a6a6af;
   text-align: center;
   width: calc(400px + 30vw);
@@ -217,7 +217,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   padding: 32px 16px;
@@ -230,7 +230,7 @@
 }
 
 .resetButton {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid #a6a6af;
   border-radius: 8px;
   padding: 4px;
@@ -244,7 +244,15 @@
   width: calc(192px + 20vw);
 }
 
-button:hover, li:hover:not(.occupied) {
-  background-color: #f0f0f0;
+li:hover:not(.occupied) {
+  background-color: #e6e6f0;
+}
+
+button:hover {
+  background-color: #fafafc;
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+  -webkit-box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
 }
 /*# sourceMappingURL=styles.css.map */
