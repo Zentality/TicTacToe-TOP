@@ -170,7 +170,6 @@ li:not(.occupied) {
 }
 
 li:hover:not(.occupied) {
-  // transition-duration: 300ms;
   transition: color 500ms, background-color 800ms, font-size 400ms;
   background-color: rgb(230, 230, 240);
   color: rgb(190,190,200);

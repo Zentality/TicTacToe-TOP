@@ -144,13 +144,11 @@ const gameBoard = (() => {
   }
 
   const computerPlay = () => {
-    setTimeout(() => {
-      while (players[(playerTurn + 1) % 2].isComputer && !gameOver){
-        endTurn();
-        play("computer");
-      }
+    while (players[(playerTurn + 1) % 2].isComputer && !gameOver){
       endTurn();
-    }, 500)
+      play("computer");
+    }
+    endTurn();
   }
 
   const changedDifficulty = () => {
