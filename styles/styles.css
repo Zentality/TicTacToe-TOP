@@ -269,4 +269,38 @@ button:hover {
   -webkit-box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
 }
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.1rem;
+}
+
+.footer a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+}
+
+.footer a img {
+  margin: 0 8px;
+  height: 48px;
+  -webkit-transition-duration: 200ms;
+          transition-duration: 200ms;
+}
+
+.footer a img:hover {
+  -webkit-transform: rotate(720deg) scale(1.2);
+          transform: rotate(720deg) scale(1.2);
+  -webkit-transition-duration: 1000ms;
+          transition-duration: 1000ms;
+}
 /*# sourceMappingURL=styles.css.map */

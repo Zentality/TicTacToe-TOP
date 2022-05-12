@@ -181,3 +181,23 @@ button:hover {
   transform: scale(1.01);
   box-shadow: 0 0 8px 1px rgba(0,0,0,0.2);
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    img {
+      margin: 0 8px;
+      height: 48px;
+      transition-duration: 200ms;
+      &:hover {
+        transform: rotate(720deg) scale(1.2);
+        transition-duration: 1000ms;
+      }
+    }
+  }
+}
