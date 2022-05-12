@@ -127,8 +127,8 @@ const gameBoard = (() => {
     }
     if (gameOver){return};
     updateBoard(index);
-    if (checkForWinner(board)){
-      displayController.printResult(checkForWinner(board));
+    if (checkForWinner(board).resultText){
+      displayController.printResult(checkForWinner(board).resultText);
       displayController.endGame();
       gameOver = true;
     }
@@ -174,34 +174,19 @@ const gameBoard = (() => {
     if (players[playerTurn].difficulty == 0){
       return legalMoves[Math.floor(Math.random() * legalMoves.length)];
     } else if (players[playerTurn].difficulty == 1){
-      for (let i = 0; i < legalMoves.length; i++){
-        tempBoard = board.slice();
-        tempBoard[legalMoves[i]] = players[playerTurn].symbol;
-        if (checkForWinner(tempBoard)){
-          return legalMoves[i];
-        }
-      }
-      for (let i = 0; i < legalMoves.length; i++){
-        tempBoard = board.slice();
-        tempBoard[legalMoves[i]] = players[(playerTurn + 1) % 2].symbol;
-        if (checkForWinner(tempBoard)){
-          return legalMoves[i];
+      for (let j = 0; j < 2; j++){
+        for (let i = 0; i < legalMoves.length; i++){
+          tempBoard = board.slice();
+          tempBoard[legalMoves[i]] = players[(playerTurn + j) % 2].symbol;
+          if (checkForWinner(tempBoard).points == 1){
+            return legalMoves[i];
+          }
         }
       }
       return legalMoves[Math.floor(Math.random() * legalMoves.length)];
     } else if (players[playerTurn].difficulty == 2){
 
     }
-  }
-
-  const findBestMove = (legal, currentBoard) => {
-    move = -1;
-    legal.foreach((move), () => {
-      if (bestMove > move){
-        move = bestMove;
-      }
-    })
-    return move;
   }
 
   const checkForWinner = (boardToCheck) => {
@@ -211,12 +196,13 @@ const gameBoard = (() => {
         continue;
       }
       if ((boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][1]]) && (boardToCheck[winCombinations[i][0]] == boardToCheck[winCombinations[i][2]])){
-        return (`The winner is ${players[playerTurn].name}!`);
+        return ({resultText:`The winner is ${players[playerTurn].name}!`, points: 1});
       }
     }
     if (!boardToCheck.includes("")){
-      return (`The result is a tie...`);
+      return ({resultText:`The result is a tie...`, points: 0});
     }
+    return ({resultText: "", points: 0})
   }
 
   const reset = () => {
