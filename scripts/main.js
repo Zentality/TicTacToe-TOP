@@ -187,23 +187,36 @@ const gameBoard = (() => {
     } else if (players[playerTurn].difficulty == 2){
 
       isMax = (playerTurn == 0);
-      let bestValue = (isMax ? -20 : 20);
+      let winMoves = [];
+      let drawMoves = [];
 
-      let bestMove = -1;
       tempBoard = board.slice();
       for (let i = 0; i < legalMoves.length; i++){
         tempBoard[legalMoves[i]] = players[playerTurn].symbol;
         let value = minimax(tempBoard, !isMax);
-        if (!isMax && value < bestValue){
-          bestValue = value;
-          bestMove = legalMoves[i];
-        } else if (isMax && value > bestValue){
-          bestValue = value;
-          bestMove = legalMoves[i];
+        if (!isMax){
+          if (value == -1){
+            winMoves.push(legalMoves[i]);
+          } else if (value == 0){
+            drawMoves.push(legalMoves[i]);
+          }
+        } else {
+          if (value == 1){
+            winMoves.push(legalMoves[i]);
+          } else if (value == 0){
+            drawMoves.push(legalMoves[i]);
+          }
         }
         tempBoard[legalMoves[i]] = "";
       }
-      return bestMove;
+
+      console.log(winMoves);
+      console.log(drawMoves);
+      if (winMoves.length > 0){
+        return winMoves[Math.floor(Math.random() * winMoves.length)];
+      } else {
+        return drawMoves[Math.floor(Math.random() * drawMoves.length)];
+      }
     }
   }
 
