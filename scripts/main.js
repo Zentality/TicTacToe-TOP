@@ -214,9 +214,19 @@ const gameBoard = (() => {
       console.log(drawMoves);
       if (winMoves.length > 0){
         return winMoves[Math.floor(Math.random() * winMoves.length)];
-      } else {
+      } else if (drawMoves.length > 0){
         return drawMoves[Math.floor(Math.random() * drawMoves.length)];
       }
+      for (let j = 0; j < 2; j++){
+        for (let i = 0; i < legalMoves.length; i++){
+          tempBoard = board.slice();
+          tempBoard[legalMoves[i]] = players[(playerTurn + j) % 2].symbol;
+          if (checkForWinner(tempBoard).points){
+            return legalMoves[i];
+          }
+        }
+      }
+      return legalMoves[Math.floor(Math.random() * legalMoves.length)];
     }
   }
 
